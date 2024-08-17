@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Léxico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        input,
+        button {
+            margin: 10px 0;
+        }
+        
+        #result {
+            margin-top: 20px;
+        }
+        
+        .token {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Analizador Léxico</h1>
+    <p>Introduce un texto para analizar:</p>
+    <input type="text" id="inputText" placeholder="Escribe aquí...">
+    <button onclick="analyze()">Analizar</button>
+
+    <div id="result"></div>
+
+    <script>
+        function isIdentifier(token) {
+            return /^[a-zA-Z][a-zA-Z0-9]*$/.test(token);
+        }
+
+        function isRealNumber(token) {
+            return /^\d+\.\d+$/.test(token);
+        }
+
+        function analyze() {
+            const inputText = document.getElementById('inputText').value.trim();
+            const tokens = inputText.split(/\s+/);
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+
+            tokens.forEach(token => {
+                if (isIdentifier(token)) {
+                    resultDiv.innerHTML += `<div class="token">Identificador: ${token}</div>`;
+                } else if (isRealNumber(token)) {
+                    resultDiv.innerHTML += `<div class="token">Número Real: ${token}</div>`;
+                } else {
+                    resultDiv.innerHTML += `<div class="token">Token no reconocido: ${token}</div>`;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
